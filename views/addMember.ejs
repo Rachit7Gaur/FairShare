@@ -1,0 +1,11 @@
+<div class="container mt-5">
+  <h2>Add Member to <%= group.name %></h2>
+  <form action="/groups/<%= group._id %>/members" method="POST">
+    <div class="mb-3">
+      <label for="identifier" class="form-label">Enter Username or Email</label>
+      <input type="text" class="form-control" id="identifier" name="identifier" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Member</button>
+    <a href="/groups/<%= group._id %>" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>

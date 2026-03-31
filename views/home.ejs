@@ -1,0 +1,46 @@
+<div class="bg-light p-5 rounded-3 text-center mt-3">
+  <h1 class="display-4 fw-bold">Welcome to FairShare</h1>
+  <p class="lead">Split group expenses easily and keep track of who paid what.</p>
+  <hr class="my-4">
+  <p>Get started by creating a group and adding your friends. FairShare will help you manage expenses and balances effortlessly.</p>
+   <% if (!user) { %>
+    <a href="/register" class="btn btn-primary btn-lg me-2">Register</a>
+    <a href="/login" class="btn btn-outline-secondary btn-lg">Log In</a>
+  <% } %>
+
+</div>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">How FairShare Works</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">1. Create a Group</h5>
+          <p class="card-text">Start by creating a group for your friends, family, or colleagues.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">2. Add Members</h5>
+          <p class="card-text">Invite members by email so everyone can join the group.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">3. Track Expenses</h5>
+          <p class="card-text">Record expenses, select who paid, and let FairShare calculate balances.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-dark text-light text-center p-4 mt-5">
+  <h4>Ready to simplify your expenses?</h4>
+  <a href="/register" class="btn btn-success btn-lg mt-2">Join FairShare Now</a>
+</div>

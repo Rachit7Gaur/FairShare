@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h2>Add Expense to <%= group.name %></h2>
+  <form action="/groups/<%= group._id %>/expenses" method="POST">
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" name="description" required>
+    </div>
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount</label>
+      <input type="number" class="form-control" id="amount" name="amount" required>
+    </div>
+    <div class="mb-3">
+      <label for="paidBy" class="form-label">Paid By</label>
+      <select class="form-select" id="paidBy" name="paidBy" required>
+        <% group.members.forEach(member => { %>
+          <option value="<%= member._id %>"><%= member.username %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="split-among" class="form-label">Split Among:</label>
+      <% group.members.forEach(member => { %>
+        <div>
+          <input type="checkbox" name="splitAmong" value="<%= member._id %>">
+          <%= member.username %>
+        </div>
+      <% }) %>
+    </div>
+    <button type="submit" class="btn btn-success">Add Expense</button>
+    <a href="/groups/<%= group._id %>" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
