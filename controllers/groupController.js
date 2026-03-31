@@ -3,6 +3,10 @@ const Group = require("../models/group");
 const User = require("../models/user");
 const Expense = require("../models/expense");
 const { calculateBalances, minimizeSettlements } = require("../utils/settlements");
+const express = require("express");
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
 
 // Create a new group
 exports.createGroup = async (req, res) => {
@@ -88,8 +92,8 @@ exports.addmemberForm =  async (req, res) => {
 exports.addMember = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id);
-    const user = await User.findOne({ username: req.body.username });
-
+    const user = await User.findOne({ username: req.body.identifier });
+  
     if (!user) {
       req.flash("error", "User not found");
       return res.redirect(`/groups/${req.params.id}`);

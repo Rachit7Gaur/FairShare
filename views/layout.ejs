@@ -15,55 +15,61 @@
       transition: opacity 1s ease-out;
     }
     html, body {
-      height: 100%;
-    }
+  height: 100%;
+  margin: 0;
+}
 
-    body {
-      display: flex;
-      flex-direction: column;
-    }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ensures full height */
+}
 
-    main {
-      flex: 1; /* This pushes footer down */
-    }
+main {
+  flex: 1; /* pushes footer down */
+}
 
-    footer {
-      margin-top: auto;
-    }
-
+footer {
+  background: #f8f9fa;
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
    </style> 
 
 </head>
 <body>
   <%- include('partials/navbar') %>   
 
- <div class="container mt-3">
-  <% if (success && success.length > 0) { %>
-    <div class="alert alert-success alert-dismissible fade show auto-dismiss" role="alert">
-      <%= success %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <main>
+    <div class="container mt-3">
+      <% if (success && success.length > 0) { %>
+        <div class="alert alert-success alert-dismissible fade show auto-dismiss" role="alert">
+          <%= success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% } %>
+
+      <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger alert-dismissible fade show auto-dismiss" role="alert">
+          <%= error %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% } %>
+
+      <% if (info && info.length > 0) { %>
+        <div class="alert alert-info alert-dismissible fade show auto-dismiss" role="alert">
+          <%= info %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% } %>
+
     </div>
-  <% } %>
 
-  <% if (error && error.length > 0) { %>
-    <div class="alert alert-danger alert-dismissible fade show auto-dismiss" role="alert">
-      <%= error %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-  <% } %>
-
-  <% if (info && info.length > 0) { %>
-    <div class="alert alert-info alert-dismissible fade show auto-dismiss" role="alert">
-      <%= info %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-  <% } %>
-
-</div>
-
-  <div class="container">
-    <%- body %>   
-  </div>
+      <div class="container">
+        <%- body %>   
+      </div>
+  </main>
   <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-..." 
