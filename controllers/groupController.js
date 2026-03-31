@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Group = require("../models/group");
 const User = require("../models/user");
+const Expense = require("../models/expense");
 const { calculateBalances, minimizeSettlements } = require("../utils/settlements");
 
 // Create a new group
@@ -103,5 +104,36 @@ exports.addMember = async (req, res) => {
     console.error(err);
     req.flash("error", "Failed to add member");
     res.redirect(`/groups/${req.params.id}`);
+  }
+};
+
+exports.deleteGroup = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const group = await Group.findById(id).populate("expenses");
+    if (!group) {
+      req.flash("error", "Group not found!");
+      return res.redirect("/dashboard");
+    }
+
+    // Check if current user is the owner
+    if (group.owner.toString() !== req.user._id.toString()) {
+      req.flash("error", "You are not authorized to delete this group.");
+      return res.redirect(`/groups/${req.params.id}`);
+    }
+
+    // Delete all expenses linked to this group
+    await Expense.deleteMany({ _id: { $in: group.expenses } });
+
+    // Delete the group itself
+    await Group.findByIdAndDelete(id);
+
+    req.flash("success", "Group and all its expenses deleted successfully!");
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.error("Error deleting group:", err);
+    req.flash("error", "Something went wrong while deleting the group.");
+    res.redirect("/dashboard");
   }
 };

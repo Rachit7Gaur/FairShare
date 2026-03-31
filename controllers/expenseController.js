@@ -50,3 +50,42 @@ exports.addExpense = async (req, res) => {
     res.redirect(`/groups/${req.params.id}`);
   }
 };
+
+// Delete an expense
+exports.deleteExpense = async (req, res) => {
+  try {
+    const { id, expenseId } = req.params;
+
+    const group = await Group.findById(id);
+    if (!group) {
+      req.flash("error", "Group not found!");
+      return res.redirect("/groups");
+    }
+
+    const expense = await Expense.findById(expenseId).populate("paidBy");
+    if (!expense) {
+      req.flash("error", "Expense not found!");
+      return res.redirect(`/groups/${id}`);
+    }
+
+    // Authorization check: only the payer can delete
+    if (expense.paidBy._id.toString() !== req.user._id.toString()) {
+      req.flash("error", "You can only delete expenses you paid for!");
+      return res.redirect(`/groups/${id}`);
+    }
+
+    // Remove expense reference from group
+    group.expenses = group.expenses.filter(e => e.toString() !== expenseId);
+    await group.save();
+
+    // Delete expense document
+    await Expense.findByIdAndDelete(expenseId);
+
+    req.flash("success", "Expense deleted successfully!");
+    res.redirect(`/groups/${id}`);
+  } catch (err) {
+    console.error("Error deleting expense:", err);
+    req.flash("error", "Something went wrong while deleting expense.");
+    res.redirect(`/groups/${req.params.id}`);
+  }
+};

@@ -18,4 +18,8 @@ router.get("/:id/add-member", groupController.addmemberForm);
 // Add a member to a group
 router.post("/:id/members", groupController.addMember);
 
+//Delete a group
+router.post("/:id/delete", groupController.deleteGroup);
+
+
 module.exports = router;
