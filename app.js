@@ -42,6 +42,12 @@ app.use("/groups", groupRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/groups", expenseRoutes);
 
+// Catch-all error handler
+app.use((err, req, res, next) => {
+  console.error('🔥 Error stack:', err.stack);
+  res.status(500).render('error', { message: 'Something went wrong!' });
+});
+
 // Server
 app.listen(3000, () => {
   console.log("FairShare running on port 3000");
