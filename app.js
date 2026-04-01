@@ -1,9 +1,9 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
 const express = require("express");
 const flash = require("connect-flash");
 const expressLayouts = require("express-ejs-layouts");
 
+const connectDB = require("./config/db");       // <-- import
 const sessionConfig = require("./config/session");
 const passportConfig = require("./config/passport");
 const flashConfig = require("./config/flash");
@@ -15,10 +15,8 @@ const expenseRoutes = require("./routes/expense");
 
 const app = express();
 
-// Database connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Atlas connected"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+// ✅ Connect to local DB
+connectDB();
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -34,7 +32,7 @@ const passport = passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Flash messages
+// Flash setup
 flashConfig(app);
 
 // Root route
@@ -46,13 +44,21 @@ app.use("/groups", groupRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/groups", expenseRoutes);
 
+// Test route for flash
+app.get("/test-flash", (req, res) => {
+  req.flash("success", "This is a success message!");
+  req.flash("error", "This is an error message!");
+  req.flash("info", "This is an info message!");
+  res.redirect("/");
+});
+
 // Error handler
 app.use((err, req, res, next) => {
   console.error("🔥 Error stack:", err.stack);
   res.status(500).render("error", { message: "Something went wrong!" });
 });
 
-// Server start — must be last
+// Server start
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`FairShare running on port ${PORT}`);

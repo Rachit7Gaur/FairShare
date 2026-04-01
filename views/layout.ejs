@@ -9,87 +9,87 @@
     integrity="sha384-..." 
     crossorigin="anonymous">
 
-   <style>
+  <style>
     .fade-out {
       opacity: 0;
       transition: opacity 1s ease-out;
     }
     html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* ensures full height */
-}
-
-main {
-  flex: 1; /* pushes footer down */
-}
-
-footer {
-  background: #f8f9fa;
-  padding: 10px;
-  text-align: center;
-  border-top: 1px solid #ddd;
-}
-   </style> 
-
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+    }
+    footer {
+      background: #f8f9fa;
+      padding: 10px;
+      text-align: center;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
+  <!-- ✅ Navbar always visible -->
   <%- include('partials/navbar') %>   
 
   <main>
     <div class="container mt-3">
-      <% if (success && success.length > 0) { %>
-        <div class="alert alert-success alert-dismissible fade show auto-dismiss" role="alert">
-          <%= success %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+      <% if (success && success.length) { %>
+        <% success.forEach(msg => { %>
+          <div class="alert alert-success alert-dismissible fade show auto-dismiss" role="alert">
+            <%= msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        <% }) %>
       <% } %>
 
-      <% if (error && error.length > 0) { %>
-        <div class="alert alert-danger alert-dismissible fade show auto-dismiss" role="alert">
-          <%= error %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+      <% if (error && error.length) { %>
+        <% error.forEach(msg => { %>
+          <div class="alert alert-danger alert-dismissible fade show auto-dismiss" role="alert">
+            <%= msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        <% }) %>
       <% } %>
 
-      <% if (info && info.length > 0) { %>
-        <div class="alert alert-info alert-dismissible fade show auto-dismiss" role="alert">
-          <%= info %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+      <% if (info && info.length) { %>
+        <% info.forEach(msg => { %>
+          <div class="alert alert-info alert-dismissible fade show auto-dismiss" role="alert">
+            <%= msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        <% }) %>
       <% } %>
-
     </div>
 
-      <div class="container">
-        <%- body %>   
-      </div>
+    <!-- ✅ Child view content goes here -->
+    <%- body %>
   </main>
+
+  <!-- ✅ Footer always visible -->
+  <%- include('partials/footer') %>
+
   <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-..." 
-    crossorigin="anonymous">  
+    crossorigin="anonymous">
   </script>
   <script>
-    
-  setTimeout(() => {
-    document.querySelectorAll('.auto-dismiss').forEach(alert => {
-      // Start fade-out
-      alert.classList.add('fade-out');
-
-      // After fade animation ends, remove the element
-      alert.addEventListener('transitionend', () => {
-        const bsAlert = new bootstrap.Alert(alert);
-        bsAlert.close();
-      }, { once: true });
-    });
-  }, 3000); // start fade after 3 seconds
+    setTimeout(() => {
+      document.querySelectorAll('.auto-dismiss').forEach(alert => {
+        alert.classList.add('fade-out');
+        alert.addEventListener('transitionend', () => {
+          const bsAlert = new bootstrap.Alert(alert);
+          bsAlert.close();
+        }, { once: true });
+      });
+    }, 3000);
   </script>
-  <%- include('partials/footer') %>
 </body>
 </html>

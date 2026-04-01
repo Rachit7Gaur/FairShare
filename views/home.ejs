@@ -41,6 +41,16 @@
 </div>
 
 <div class="bg-dark text-light text-center p-4 mt-5">
-  <h4>Ready to simplify your expenses?</h4>
-  <a href="/register" class="btn btn-success btn-lg mt-2">Join FairShare Now</a>
+  
+  <% if (!user) { %>
+    <h4>Ready to simplify your expenses?</h4>
+    <a href="/register" class="btn btn-primary">Join FairShare</a>
+  <% } else { %>
+    <!-- Show a quote or motivational paragraph when logged in -->
+    <blockquote class="blockquote mt-4">
+      <p>"Fairness is not an option, it’s a way of living together."</p>
+    </blockquote>
+    <p >Thank you for being part of FairShare — where every expense finds its balance.</p>
+  <% } %>
+
 </div>
