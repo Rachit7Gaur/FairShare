@@ -1,13 +1,8 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Atlas connected"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
-
 const express = require("express");
-const flash = require('connect-flash');
-const expressLayouts = require('express-ejs-layouts');
+const flash = require("connect-flash");
+const expressLayouts = require("express-ejs-layouts");
 
 const sessionConfig = require("./config/session");
 const passportConfig = require("./config/passport");
@@ -20,21 +15,30 @@ const expenseRoutes = require("./routes/expense");
 
 const app = express();
 
-app.set('view engine', "ejs");
+// Database connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Atlas connected"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
+
+// View engine setup
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(expressLayouts);
-app.set('layout', 'layout');
+app.set("layout", "layout");
 
+// Session middleware
 app.use(sessionConfig());
 
+// Passport setup
 const passport = passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Flash messages
 flashConfig(app);
 
-// Root Route
-app.get('/', (req, res) => res.render("home"));
+// Root route
+app.get("/", (req, res) => res.render("home"));
 
 // Routes
 app.use("/", authRoutes);
@@ -42,13 +46,14 @@ app.use("/groups", groupRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/groups", expenseRoutes);
 
-// Catch-all error handler
+// Error handler
 app.use((err, req, res, next) => {
-  console.error('🔥 Error stack:', err.stack);
-  res.status(500).render('error', { message: 'Something went wrong!' });
+  console.error("🔥 Error stack:", err.stack);
+  res.status(500).render("error", { message: "Something went wrong!" });
 });
 
 // Server
-app.listen(3000, () => {
-  console.log("FairShare running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`FairShare running on port ${PORT}`);
 });
