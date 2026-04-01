@@ -52,7 +52,7 @@ app.use((err, req, res, next) => {
   res.status(500).render("error", { message: "Something went wrong!" });
 });
 
-// Server
+// Server start — must be last
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`FairShare running on port ${PORT}`);
