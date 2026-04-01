@@ -92,10 +92,21 @@ exports.addmemberForm =  async (req, res) => {
 exports.addMember = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id);
+    if (!group) {
+      req.flash("error", "Group not found");
+      return res.redirect("/groups");
+    }
+
     const user = await User.findOne({ username: req.body.identifier });
-  
     if (!user) {
       req.flash("error", "User not found");
+      return res.redirect(`/groups/${req.params.id}`);
+    }
+
+    // Check if user is already a member
+    const alreadyMember = group.members.some(memberId => memberId.equals(user._id));
+    if (alreadyMember) {
+      req.flash("error", "User is already a member of this group");
       return res.redirect(`/groups/${req.params.id}`);
     }
 
