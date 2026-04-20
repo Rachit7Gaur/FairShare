@@ -14,6 +14,14 @@ FairShare is a lightweight, user-friendly web application that simplifies group 
 
 ---
 
+## Our Team Member's Role 
+
+- **Rachit:** Backend and Deployment
+- **Vishesh:** Frontend and PPT
+- **Abhishek:** Frontend and Report
+- **Shantanu:** Deployment and Backend
+- **Priyanshu:** Frontend and PPT
+
 ---
 
 ## 🚀 Features
