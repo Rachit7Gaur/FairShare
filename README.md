@@ -2,6 +2,19 @@
 FairShare is a lightweight, user-friendly web application that simplifies group expense management.  it helps friends, roommates, and teams track shared costs and settle balances fairly.
 
 ---
+## 👥 Team Members
+
+|      Name      |  Roll Number  |
+|----------------|---------------|
+| Abhishek Yadav | 2400520100077 |
+| Rachit Gaur    | 2400520100060 |
+| Shantanu Singh | 2400520100065 |
+| Priyanshu Gautam | 2400520100059 |
+| Vishesh Tiwari | 2400520100076 |
+
+---
+
+---
 
 ## 🚀 Features
 - **User Authentication**
