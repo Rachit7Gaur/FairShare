@@ -6,10 +6,10 @@ FairShare is a lightweight, user-friendly web application that simplifies group 
 
 |      Name      |  Roll Number  |
 |----------------|---------------|
-| Abhishek Yadav | 2400520100077 |
+| Yadav Abhishek Dilip | 2400520100077 |
 | Rachit Gaur    | 2400520100060 |
 | Shantanu Singh | 2400520100065 |
-| Priyanshu Gautam | 2400520100059 |
+| Priyanshu Gautam| 2400520100059 |
 | Vishesh Tiwari | 2400520100076 |
 
 ---
