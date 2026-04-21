@@ -1,15 +1,18 @@
-<div class="bg-light p-5 rounded-3 text-center mt-3">
-  <h1 class="display-4 fw-bold">Welcome to FairShare</h1>
-  <p class="lead">Split group expenses easily and keep track of who paid what.</p>
-  <hr class="my-4">
-  <p>Get started by creating a group and adding your friends. FairShare will help you manage expenses and balances effortlessly.</p>
-   <% if (!user) { %>
-    <a href="/register" class="btn btn-primary btn-lg me-2">Register</a>
-    <a href="/login" class="btn btn-outline-secondary btn-lg">Log In</a>
-  <% } %>
-
+<!-- Hero Section -->
+<div class=" text-center mt-3">
+  <div class="hero-card mx-auto">
+    <h1 class="display-4 fw-bold">Welcome to FairShare</h1>
+    <p class="lead">Split group expenses easily and keep track of who paid what.</p>
+    <hr class="my-4">
+    <p>Get started by creating a group and adding your friends. FairShare will help you manage expenses and balances effortlessly.</p>
+    <% if (!user) { %>
+      <a href="/register" class="btn btn-gradient btn-lg me-2">Register</a>
+      <a href="/login" class="btn btn-gradient btn-lg">Log In</a>
+    <% } %>
+  </div>
 </div>
 
+<!-- How FairShare Works -->
 <div class="container mt-5">
   <h2 class="text-center mb-4">How FairShare Works</h2>
   <div class="row">
@@ -40,17 +43,8 @@
   </div>
 </div>
 
-<div class="bg-dark text-light text-center p-4 mt-5">
-  
-  <% if (!user) { %>
-    <h4>Ready to simplify your expenses?</h4>
-    <a href="/register" class="btn btn-primary">Join FairShare</a>
-  <% } else { %>
-    <!-- Show a quote or motivational paragraph when logged in -->
-    <blockquote class="blockquote mt-4">
-      <p>"Fairness is not an option, it’s a way of living together."</p>
-    </blockquote>
-    <p >Thank you for being part of FairShare — where every expense finds its balance.</p>
-  <% } %>
-
-</div>
+<!-- Footer -->
+<footer class="footer text-light text-center p-4 mt-5">
+  <h4>Ready to simplify your expenses?</h4>
+  <a href="/register" class="btn btn-gradient">Join FairShare</a>
+</footer>

@@ -2,8 +2,9 @@
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="/">FairShare</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" aria-controls="navbarNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -11,24 +12,28 @@
       <ul class="navbar-nav ms-auto">
         
         <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/"><b>Home</b></a>
         </li>
 
-        <% if (user) { %>
-         
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-danger" href="/logout">Logout</a>
+        <% if (typeof user !== "undefined" && user) { %>
+          <!-- Dropdown for logged-in user -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" 
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= user.username %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="/profile/edit">Edit Profile</a></li>
+              <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+            </ul>
           </li>
         <% } else { %>
-          
+          <!-- Guest links -->
           <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link" href="/register"><b>Register</b></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/login"><b>Login</b></a>
           </li>
         <% } %>
       </ul>

@@ -12,6 +12,7 @@ const authRoutes = require("./routes/auth");
 const groupRoutes = require("./routes/groups");
 const dashboardRoutes = require("./routes/dashboard");
 const expenseRoutes = require("./routes/expense");
+const profileRoutes = require("./routes/profile");
 
 const app = express();
 
@@ -36,13 +37,20 @@ app.use(passport.session());
 flashConfig(app);
 
 // Root route
-app.get("/", (req, res) => res.render("home"));
+app.get("/", (req, res) => {
+  if (req.user) {
+    return res.redirect("/dashboard");
+  }
+  res.render("home");
+});
 
 // Routes
 app.use("/", authRoutes);
 app.use("/groups", groupRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/groups", expenseRoutes);
+app.use("/profile", profileRoutes);
+app.get("/about", (req, res) => {res.render("about");});
 
 // Test route for flash
 app.get("/test-flash", (req, res) => {

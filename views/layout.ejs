@@ -19,6 +19,7 @@
       margin: 0;
     }
     body {
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat fixed;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -26,16 +27,164 @@
     main {
       flex: 1;
     }
-    footer {
-      background: #f8f9fa;
-      padding: 10px;
-      text-align: center;
-      border-top: 1px solid #ddd;
-    }
-  </style>
+
+    :root {
+  --bs-primary: #0077ff;   /* Accent blue */
+  --bs-secondary: #00c9a7; /* Teal accent */
+  --bs-body-bg: #f0f4f8;   /* Soft neutral background */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.3); /* light overlay */
+  z-index: -1;
+}
+
+
+.login-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+  border: none;
+  color: #fff;
+  transition: 0.3s;
+}
+.btn-gradient:hover {
+  filter: brightness(1.1);
+}
+
+.btn-google {
+  background: #db4437;
+  color: #fff;
+  border: none;
+}
+.btn-google:hover {
+  background: #c23321;
+}
+
+.form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0,119,255,0.25);
+}
+
+.navbar {
+  backdrop-filter: blur(12px);
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(to right, var(--bs-primary), var(--bs-secondary));
+  border-image-slice: 1;
+  position: relative;
+   z-index: 1050;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5); /* stronger overlay for contrast */
+}
+
+.navbar-brand,
+.nav-link {
+  color: #fff !important; /* force white text */
+  position: relative;
+  z-index: 1; /* ensures text sits above overlay */
+}
+
+.nav-link:hover {
+  color: var(--bs-secondary) !important; /* teal accent on hover */
+}
+
+.hero-section {
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat fixed;
+  padding: 5rem 2rem;
+  border-radius: 12px;
+}
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4); /* overlay for readability */
+  border-radius: 12px;
+}
+.hero-card {
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.hero-card h1, .hero-card p {
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.footer {
+  backdrop-filter: blur(12px);
+  background: linear-gradient(90deg, #0077ff, #00c9a7);
+  color: #fff;
+}
+
+.profile-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.frosted-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.frosted-card:hover {
+  transform: translateY(-5px);
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+  border: none;
+  color: #fff !important;
+  border-radius: 25px;
+  padding: 6px 16px;
+  transition: 0.3s;
+}
+.btn-gradient:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 12px rgba(0,119,255,0.5);
+}
+.dropdown-menu {
+  z-index: 2000; /* ensures dropdown is above hero card */
+}
+</style>
 </head>
 <body>
-  <!-- ✅ Navbar always visible -->
   <%- include('partials/navbar') %>   
 
   <main>
@@ -46,7 +195,7 @@
             <%= msg %>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
-        <% }) %>
+        <% }) %>+
       <% } %>
 
       <% if (error && error.length) { %>
@@ -68,11 +217,9 @@
       <% } %>
     </div>
 
-    <!-- ✅ Child view content goes here -->
     <%- body %>
   </main>
 
-  <!-- ✅ Footer always visible -->
   <%- include('partials/footer') %>
 
   <script 
