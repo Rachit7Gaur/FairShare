@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
 
-function connectDB() {
-  return mongoose.connect(process.env.DB_URL || "mongodb://127.0.0.1:27017/fairshare");
+async function connectDB() {
+  try {
+    const conn = await mongoose.connect(
+      process.env.MONGO_URI || "mongodb://127.0.0.1:27017/fairshare"
+    );
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`❌ Error connecting to MongoDB: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 module.exports = connectDB;

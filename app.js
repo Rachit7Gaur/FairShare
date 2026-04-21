@@ -16,27 +16,24 @@ const profileRoutes = require("./routes/profile");
 
 const app = express();
 
-// ✅ Connect to local DB
+
 connectDB();
 
-// View engine setup
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(expressLayouts);
 app.set("layout", "layout");
 
-// Session middleware
+app.set('trust proxy', 1);
 app.use(sessionConfig());
 
-// Passport setup
 const passport = passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Flash setup
 flashConfig(app);
 
-// Root route
 app.get("/", (req, res) => {
   if (req.user) {
     return res.redirect("/dashboard");
@@ -44,7 +41,6 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-// Routes
 app.use("/", authRoutes);
 app.use("/groups", groupRoutes);
 app.use("/dashboard", dashboardRoutes);
@@ -52,15 +48,14 @@ app.use("/groups", expenseRoutes);
 app.use("/profile", profileRoutes);
 app.get("/about", (req, res) => {res.render("about");});
 
-// Test route for flash
-app.get("/test-flash", (req, res) => {
-  req.flash("success", "This is a success message!");
-  req.flash("error", "This is an error message!");
-  req.flash("info", "This is an info message!");
-  res.redirect("/");
-});
+// app.get("/test-flash", (req, res) => {
+//   req.flash("success", "This is a success message!");
+//   req.flash("error", "This is an error message!");
+//   req.flash("info", "This is an info message!");
+//   res.redirect("/");
+// });
 
-// Error handler
+
 app.use((err, req, res, next) => {
   console.error("🔥 Error stack:", err.stack);
   res.status(500).render("error", { message: "Something went wrong!" });

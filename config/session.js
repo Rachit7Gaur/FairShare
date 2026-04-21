@@ -11,9 +11,9 @@ function sessionConfig() {
       collectionName: "sessions",
     }),
     cookie: {
-      httpOnly: true,                          // prevents client-side JS access
-      secure: process.env.NODE_ENV === "production", // only over HTTPS in prod
-      maxAge: 1000 * 60 * 60,                  // 1 hour
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production" && process.env.ENABLE_HTTPS === "true",
+      maxAge: 1000 * 60 * 60,
     },
   });
 }
