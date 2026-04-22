@@ -8,12 +8,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+const callbackURL =
+  process.env.NODE_ENV === "production"
+    ? process.env.GOOGLE_CALLBACK_URL
+    : "http://localhost:3000/auth/google/callback";
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL, // ✅ use env variable
+      callbackURL,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
