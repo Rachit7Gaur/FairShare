@@ -34,6 +34,15 @@ app.use(passport.session());
 
 flashConfig(app);
 
+app.use((req, res, next) => {
+  res.locals.messages = {
+    error: req.flash("error"),
+    success: req.flash("success")
+  };
+  next();
+});
+
+
 app.get("/", (req, res) => {
   if (req.user) {
     return res.redirect("/dashboard");
