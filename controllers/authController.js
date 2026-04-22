@@ -55,10 +55,18 @@ exports.postRegister = async (req, res, next) => {
     });
   } catch (err) {
     console.error(err);
-    req.flash("error", "Registration failed: " + err.message);
+
+    // Handle duplicate email error
+    if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
+      req.flash("error", "Email already registered. Please log in instead.");
+    } else {
+      req.flash("error", "Registration failed: " + err.message);
+    }
+
     res.redirect("/register");
   }
 };
+
 
 
 // GET logout
