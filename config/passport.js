@@ -13,6 +13,8 @@ const callbackURL =
     ? process.env.GOOGLE_CALLBACK_URL
     : "http://localhost:3000/auth/google/callback";
 
+console.log("Google OAuth using callback URL:", callbackURL);
+
 passport.use(
   new GoogleStrategy(
     {
