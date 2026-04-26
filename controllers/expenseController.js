@@ -2,7 +2,7 @@ const Group = require("../models/group");
 const Expense = require("../models/expense");
 const User = require("../models/user");
 
-// Show add-expense form
+
 exports.showAddExpenseForm = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id).populate("members");
@@ -18,7 +18,6 @@ exports.showAddExpenseForm = async (req, res) => {
   }
 };
 
-// Add a new expense
 exports.addExpense = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id);
@@ -51,7 +50,7 @@ exports.addExpense = async (req, res) => {
   }
 };
 
-// Delete an expense
+
 exports.deleteExpense = async (req, res) => {
   try {
     const { id, expenseId } = req.params;
@@ -68,17 +67,16 @@ exports.deleteExpense = async (req, res) => {
       return res.redirect(`/groups/${id}`);
     }
 
-    // Authorization check: only the payer can delete
+
     if (expense.paidBy._id.toString() !== req.user._id.toString()) {
       req.flash("error", "You can only delete expenses you paid for!");
       return res.redirect(`/groups/${id}`);
     }
 
-    // Remove expense reference from group
+
     group.expenses = group.expenses.filter(e => e.toString() !== expenseId);
     await group.save();
 
-    // Delete expense document
     await Expense.findByIdAndDelete(expenseId);
 
     req.flash("success", "Expense deleted successfully!");

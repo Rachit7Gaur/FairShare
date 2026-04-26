@@ -29,16 +29,16 @@
     }
 
     :root {
-  --bs-primary: #0077ff;   /* Accent blue */
-  --bs-secondary: #00c9a7; /* Teal accent */
-  --bs-body-bg: #f0f4f8;   /* Soft neutral background */
+  --bs-primary: #0077ff;   
+  --bs-secondary: #00c9a7; 
+  --bs-body-bg: #f0f4f8;  
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(255,255,255,0.3); /* light overlay */
+  background: rgba(255,255,255,0.3); 
   z-index: -1;
 }
 
@@ -89,18 +89,18 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5); /* stronger overlay for contrast */
+  background: rgba(0,0,0,0.5);
 }
 
 .navbar-brand,
 .nav-link {
-  color: #fff !important; /* force white text */
+  color: #fff !important;
   position: relative;
-  z-index: 1; /* ensures text sits above overlay */
+  z-index: 1; 
 }
 
 .nav-link:hover {
-  color: var(--bs-secondary) !important; /* teal accent on hover */
+  color: var(--bs-secondary) !important; 
 }
 
 .hero-section {
@@ -113,7 +113,7 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.4); /* overlay for readability */
+  background: rgba(0,0,0,0.4); 
   border-radius: 12px;
 }
 .hero-card {
@@ -180,7 +180,7 @@ body::before {
   box-shadow: 0 0 12px rgba(0,119,255,0.5);
 }
 .dropdown-menu {
-  z-index: 2000; /* ensures dropdown is above hero card */
+  z-index: 2000;
 }
 </style>
 </head>

@@ -1,12 +1,11 @@
-const User = require("../models/user");   // your User model
+const User = require("../models/user");   
 const passport = require("passport");
 
-// GET login page
+
 exports.getLogin = (req, res) => {
-  res.render("login");   // renders login.ejs
+  res.render("login");   
 };
 
-// POST login
 exports.postLogin = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
@@ -27,27 +26,24 @@ exports.postLogin = (req, res, next) => {
 };
 
 
-// GET register page
 exports.getRegister = (req, res) => {
   res.render("register"); 
 };
 
-// POST register
 exports.postRegister = async (req, res, next) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
 
-    // check if passwords match
+  
     if (password !== confirmPassword) {
       req.flash("error", "Passwords do not match");
       return res.redirect("/register");
     }
 
-    // create new user
     const newUser = new User({ username, email });
-    await User.register(newUser, password); // passport-local-mongoose helper
+    await User.register(newUser, password); 
 
-    // log the user in immediately after registration
+    
     req.login(newUser, (err) => {
       if (err) return next(err);
       req.flash("success", "Account created successfully! Welcome, " + newUser.username + "!");
@@ -56,7 +52,7 @@ exports.postRegister = async (req, res, next) => {
   } catch (err) {
     console.error(err);
 
-    // Handle duplicate email error
+  
     if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
       req.flash("error", "Email already registered. Please log in instead.");
     } else {
@@ -68,8 +64,6 @@ exports.postRegister = async (req, res, next) => {
 };
 
 
-
-// GET logout
 exports.logout = (req, res, next) => {
   req.logout(err => {
     if (err) { return next(err); }

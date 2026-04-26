@@ -9,11 +9,10 @@ module.exports.updateProfile = async (req, res) => {
   try {
     const { username, email } = req.body;
 
-    // Update user by _id and return the updated document
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       { username, email },
-      { new: true, runValidators: true } // ensures updated doc is returned and validation runs
+      { new: true, runValidators: true } 
     );
 
     if (!updatedUser) {
@@ -21,7 +20,7 @@ module.exports.updateProfile = async (req, res) => {
       return res.redirect("/profile/edit");
     }
 
-    // Refresh session with updated user
+
     req.login(updatedUser, (err) => {
       if (err) {
         console.error(err);

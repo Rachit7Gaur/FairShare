@@ -2,19 +2,22 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
 
-      <!-- Flash Messages -->
-      <% if (messages.error) { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <%= messages.error %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      <% if (messages.error && messages.error.length > 0) { %>
+        <% messages.error.forEach(function(msg) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% }) %>
       <% } %>
 
-      <% if (messages.success) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <%= messages.success %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      <% if (messages.success && messages.success.length > 0) { %>
+        <% messages.success.forEach(function(msg) { %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% }) %>
       <% } %>
 
       <div class="card register-card shadow-lg">
@@ -22,7 +25,6 @@
           <h2 class="text-center mb-4">Create Account</h2>
           <form action="/register" method="POST">
             
-            <!-- Username -->
             <div class="mb-3 input-group">
               <span class="input-group-text"><i class="fa fa-user"></i></span>
               <input 
@@ -34,7 +36,6 @@
                 required>
             </div>
 
-            <!-- Email -->
             <div class="mb-3 input-group">
               <span class="input-group-text"><i class="fa fa-envelope"></i></span>
               <input 
@@ -46,7 +47,6 @@
                 required>
             </div>
 
-            <!-- Password -->
             <div class="mb-3 input-group">
               <span class="input-group-text"><i class="fa fa-lock"></i></span>
               <input 
@@ -58,7 +58,6 @@
                 required>
             </div>
 
-            <!-- Confirm Password -->
             <div class="mb-3 input-group">
               <span class="input-group-text"><i class="fa fa-lock"></i></span>
               <input 

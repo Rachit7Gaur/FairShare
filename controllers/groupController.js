@@ -8,18 +8,15 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 
-// Create a new group
 exports.createGroup = async (req, res) => {
   try {
     const { name } = req.body;
 
-    // validation
     if (!name || name.trim() === "") {
       req.flash("error", "Group name cannot be empty.");
       return res.redirect("/groups/new");
     }
 
-    // create group with owner and initial member
     const group = new Group({
       name,
       owner: req.user._id,
@@ -37,17 +34,16 @@ exports.createGroup = async (req, res) => {
   }
 };
 
-// View group details
+
 exports.viewGroup = async (req, res) => {
   try {
     const id = req.params.id;
 
-    // validate ObjectId
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send("Invalid group ID");
     }
 
-    // find group and populate relations
     const group = await Group.findById(id)
       .populate("owner")
       .populate("members")
@@ -60,11 +56,11 @@ exports.viewGroup = async (req, res) => {
       return res.status(404).send("Group not found");
     }
 
-    // calculate balances and settlements
+  
     const balances = calculateBalances(group.expenses, group.members);
     const settlements = minimizeSettlements(balances, group.members);
 
-    // fetch all users (for adding members)
+   
     const allUsers = await User.find({});
 
     res.render("groupDetails", {
@@ -81,7 +77,7 @@ exports.viewGroup = async (req, res) => {
   }
 };
 
-// Add a member to group
+
 exports.addmemberForm =  async (req, res) => {
   const group = await Group.findById(req.params.id).populate("members");
   const allUsers = await User.find({});
@@ -103,7 +99,6 @@ exports.addMember = async (req, res) => {
       return res.redirect(`/groups/${req.params.id}`);
     }
 
-    // Check if user is already a member
     const alreadyMember = group.members.some(memberId => memberId.equals(user._id));
     if (alreadyMember) {
       req.flash("error", "User is already a member of this group");

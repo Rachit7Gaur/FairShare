@@ -3,7 +3,7 @@ const express = require("express");
 const flash = require("connect-flash");
 const expressLayouts = require("express-ejs-layouts");
 
-const connectDB = require("./config/db");       // <-- import
+const connectDB = require("./config/db");       
 const sessionConfig = require("./config/session");
 const passportConfig = require("./config/passport");
 const flashConfig = require("./config/flash");
@@ -56,14 +56,6 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/groups", expenseRoutes);
 app.use("/profile", profileRoutes);
 app.get("/about", (req, res) => {res.render("about");});
-
-// app.get("/test-flash", (req, res) => {
-//   req.flash("success", "This is a success message!");
-//   req.flash("error", "This is an error message!");
-//   req.flash("info", "This is an info message!");
-//   res.redirect("/");
-// });
-
 
 app.use((err, req, res, next) => {
   console.error("🔥 Error stack:", err.stack);

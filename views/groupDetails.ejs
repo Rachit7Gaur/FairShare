@@ -1,6 +1,5 @@
 <div class="container mt-5">
 
-  <!-- Group Header -->
 <div class="card shadow-sm mb-4">
   <div class="card-body d-flex justify-content-between align-items-center">
     <div>
@@ -37,7 +36,6 @@
   </div>
 </div>
 
-  <!-- Members Section -->
   <h3 class="mb-3">Members</h3>
   <div class="row">
     <% group.members.forEach(member => { %>
@@ -52,14 +50,13 @@
     <% }) %>
   </div>
 
-  <!-- Add Member Button -->
+
   <div class="mt-3 mb-5">
     <a href="/groups/<%= group._id %>/add-member" class="btn btn-primary">
       ➕ Add Member
     </a>
   </div>
 
-  <!-- Expenses Section -->
 <h3 class="mt-4 mb-3">Expenses</h3>
 <% if (expenses.length > 0) { %>
   <div class="table-responsive">
@@ -89,9 +86,9 @@
             </td>
             <td><%= expense.date.toDateString() %></td>
             <td>
-              <!-- Expense Row -->
+             
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <!-- Trigger Modal -->
+                
                 <button class="btn btn-link text-danger p-0" 
                         data-bs-toggle="modal" 
                         data-bs-target="#deleteExpenseModal-<%= expense._id %>">
@@ -100,7 +97,7 @@
                 </button>
               </div>
 
-            <!-- Confirmation Modal -->
+            
             <div class="modal fade" id="deleteExpenseModal-<%= expense._id %>" 
                 tabindex="-1" 
                 aria-labelledby="deleteExpenseModalLabel-<%= expense._id %>" 
@@ -137,14 +134,14 @@
   <div class="alert alert-info">No expenses added yet.</div>
 <% } %>
 
-  <!-- Add Expense Button -->
+  
   <div class="mt-3">
     <a href="/groups/<%= group._id %>/add-expense" class="btn btn-success">
       ➕ Add Expense
     </a>
   </div>
 
-<!-- Balances Section -->
+
 <h3 class="mt-4 mb-3">Balances</h3>
 <table class="table table-bordered">
   <thead>
@@ -171,7 +168,6 @@
   </tbody>
 </table>
 
-<!-- Settlements Section -->
 <h3 class="mt-4 mb-3">Settlements</h3>
 <% if (settlements.length > 0) { %>
   <ul class="list-group">

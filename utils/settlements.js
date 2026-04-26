@@ -1,7 +1,6 @@
 function calculateBalances(expenses, members) {
   const balances = {};
 
-  // Initialize balances
   members.forEach(member => {
     balances[member._id] = 0;
   });
@@ -11,9 +10,9 @@ function calculateBalances(expenses, members) {
 
     expense.splitAmong.forEach(member => {
       if (member._id.toString() !== expense.paidBy._id.toString()) {
-        // Member owes their share
+        
         balances[member._id] -= share;
-        // PaidBy gets credited
+      
         balances[expense.paidBy._id] += share;
       }
     });
@@ -46,7 +45,7 @@ function minimizeSettlements(balances, members) {
     settlements.push({
       from: debtor.member.username,
       to: creditor.member.username,
-      amount: Math.round(amount * 100) / 100 // round to 2 decimals
+      amount: Math.round(amount * 100) / 100
     });
 
     debtor.balance -= amount;
