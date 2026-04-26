@@ -45,6 +45,6 @@ FairShare is a lightweight, user-friendly web application that simplifies group 
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB Atlas
 - **Authentication:** Passport.js (Local & Google OAuth 2.0)
-- **Deployment:** (add if you deployed, e.g., Heroku, Vercel, or Render)
+- **Deployment:** Render
 
 ---
